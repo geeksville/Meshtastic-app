@@ -1,0 +1,14 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Join Channel</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-item *ngIf="scannedData">
+    <p>Scanned Code Text : <b>{{ scannedData["text"] }}</b></p>
+  </ion-item>
+</ion-content>

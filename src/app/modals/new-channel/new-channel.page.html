@@ -1,0 +1,33 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Create New Channel</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Channel Name</ion-label>
+      <ion-input [(ngModel)]="qrdata"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-padding">
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="generateQR()">Create account</ion-button>
+  </div>
+
+  <div class="qrcodeImage" *ngIf="generated">
+    <qrcode
+          [elementType]="elementType"
+          [level]="level"
+          [qrdata]="qrdata"
+          [scale]="scale"
+          [width]="width"
+        ></qrcode>
+  </div>
+
+</ion-content>

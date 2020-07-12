@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Meshtastic
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="pair()">
+        <ion-icon slot="end" name="sync-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar placeholder="Find a conversation"
+  [(ngModel)]="searchTerm"
+  (ionChange)="setFilteredItems()"
+  ></ion-searchbar>
+
+  <ion-list>
+    <ion-list-header>
+      Recent Conversations
+      <ion-button (click)="newChannel()">Create New</ion-button>
+    </ion-list-header>
+
+    <ion-item *ngFor="let c of channels">
+      <ion-avatar slot="start">
+        <img src="./avatar-finn.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ c.name }}</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="joinChannel()">
+      <ion-icon name="scan-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

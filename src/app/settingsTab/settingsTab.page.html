@@ -1,0 +1,85 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Meshtastic
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+    <ion-item>
+      <ion-toggle [(ngModel)]="cnf.advanced_mode" (ionChange)="saveVal()"></ion-toggle>
+      <ion-label>Advanced mode</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Your Name</ion-label>
+      <ion-input [(ngModel)]="cnf.nickname" (ionChange)="saveVal()"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="cnf.advanced_mode">
+    <ion-card-header>
+      <ion-card-subtitle>LoRa</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-item>
+      <ion-label>Spreading Factor</ion-label>
+      <ion-select [(ngModel)]="cnf.spreading_factor" okText="OK" cancelText="Cancel" (ionChange)="saveVal()">
+        <ion-select-option value="7">7</ion-select-option>
+        <ion-select-option value="8">8</ion-select-option>
+        <ion-select-option value="9">9</ion-select-option>
+        <ion-select-option value="10">10</ion-select-option>
+        <ion-select-option value="11">11</ion-select-option>
+        <ion-select-option value="12">12</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Code Rate (CR)</ion-label>
+      <ion-select [(ngModel)]="cnf.code_rate" okText="OK" cancelText="Cancel" (ionChange)="saveVal()">
+        <ion-select-option value="1">1</ion-select-option>
+        <ion-select-option value="2">2</ion-select-option>
+        <ion-select-option value="3">3</ion-select-option>
+        <ion-select-option value="4">4</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Bandwith</ion-label>
+      <ion-select [(ngModel)]="cnf.bandwith" okText="OK" cancelText="Cancel" (ionChange)="saveVal()">
+        <ion-select-option value="125">125kHz</ion-select-option>
+        <ion-select-option value="250">250kHz</ion-select-option>
+        <ion-select-option value="500">500kHz</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ datarate }}</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Notifications</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-item>
+      <ion-toggle [(ngModel)]="cnf.message_notifications" (ionChange)="saveVal()"></ion-toggle>
+      <ion-label>Messages</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle [(ngModel)]="cnf.battery_notifications" (ionChange)="saveVal()"></ion-toggle>
+      <ion-label>Battery Alert</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="cnf.battery_notifications">
+      <ion-label>Alert Threshold</ion-label>
+      <ion-range min="10" max="90" pin="true" step="10" snaps ticks="true" [(ngModel)]="cnf.battery_threshold" (ionChange)="saveVal()"></ion-range>
+    </ion-item>
+  </ion-card>
+
+</ion-content> 

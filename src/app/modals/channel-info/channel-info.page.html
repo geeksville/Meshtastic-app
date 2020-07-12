@@ -1,0 +1,12 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Channel Info</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <qrcode [qrdata]="channel.name" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+</ion-content>

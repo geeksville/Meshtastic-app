@@ -1,0 +1,21 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Pairing</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list>
+    <ion-list-header text-wrap>
+      {{ statusMessage }}
+    </ion-list-header>
+    <ion-item text-wrap *ngFor="let device of devices" (click)="connect(device)">
+      {{ device.name || 'Unnamed' }}
+    </ion-item>
+  </ion-list> 
+
+</ion-content>
