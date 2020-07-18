@@ -1,9 +1,27 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>chat-detail</ion-title>
+    <ion-title>
+      Chat Detail
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="showChannelInfo()">
+        <ion-icon slot="end" name="qr-code-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-list>
+    <ion-card *ngFor="let m of messages">
+      <ion-card-header>
+        {{ m.sender }}
+      </ion-card-header>
+      <ion-card-content>
+        {{ m.body }}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 
 </ion-content>

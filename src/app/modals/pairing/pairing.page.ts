@@ -25,6 +25,11 @@ export class PairingPage implements OnInit {
   }
 
   ngOnInit() {
+    this.ble.startStateNotifications().subscribe(
+      (state) => {
+        this.showMessage("Bluetooth state is " + state)
+      }
+    );
     this.scan();
   }
 
@@ -54,6 +59,7 @@ export class PairingPage implements OnInit {
   }
 
   onDeviceDiscovered(newDevice) {
+    console.log(newDevice);
     if (!this.devices.some((device) => device.id == newDevice.id)) {
       this.ngZone.run(() => {
         this.devices.push(newDevice);
@@ -67,6 +73,14 @@ export class PairingPage implements OnInit {
 
     const toast = await this.toastCtrl.create({
       message: 'Error scanning for Bluetooth low energy devices',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async showMessage(msg) {
+    const toast = await this.toastCtrl.create({
+      message: 'msg',
       duration: 2000
     });
     toast.present();

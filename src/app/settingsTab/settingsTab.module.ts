@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SettingsTabPage } from './settingsTab.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { SettingsTabPageRoutingModule } from './settingsTab-routing.module'
 
@@ -17,6 +18,7 @@ import { SettingsTabPageRoutingModule } from './settingsTab-routing.module'
     RouterModule.forChild([{ path: '', component: SettingsTabPage }]),
     SettingsTabPageRoutingModule,
   ],
-  declarations: [SettingsTabPage]
+  declarations: [SettingsTabPage],
+  providers: [InAppBrowser]
 })
 export class SettingsTabPageModule {}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CheckTutorialService } from './services/check-tutorial.service';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'new-channel',
     loadChildren: () => import('./modals/new-channel/new-channel.module').then( m => m.NewChannelPageModule)
+  },
+  {
+    path: 'tutorial',
+    loadChildren: () => import('./tutorial/tutorial.module').then( m => m.TutorialPageModule),
+    canLoad: [CheckTutorialService]
   }
 ];
 @NgModule({

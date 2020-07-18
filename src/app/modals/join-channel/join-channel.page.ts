@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 @Component({
@@ -16,7 +16,8 @@ export class JoinChannelPage implements OnInit {
 
   constructor(
               private qrScanCtrl: QRScanner,
-              private modalCtrl: ModalController) { }
+              private modalCtrl: ModalController,
+              private toastCtrl: ToastController) { }
 
 
   ngOnInit() {
@@ -47,7 +48,7 @@ export class JoinChannelPage implements OnInit {
         } else {
         }
       })
-      .catch((e: any) => console.log('Error is', e));
+      .catch((e: any) => this.showError(e));
   }
 
   closeScanner() {
@@ -58,6 +59,14 @@ export class JoinChannelPage implements OnInit {
 
   dismissModal() {
     this.modalCtrl.dismiss();
+  }
+
+  async showError(err: string) {
+    const toast = await this.toastCtrl.create({
+      message: err,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
