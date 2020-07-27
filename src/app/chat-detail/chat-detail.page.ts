@@ -12,8 +12,10 @@ import { ChannelInfoPage } from '../modals/channel-info/channel-info.page';
 })
 export class ChatDetailPage {
   channel: Channel;
+  messages: Message[];
   lat: number;
   lng: number;
+  myId: number;
 
   constructor(private geolocation: Geolocation, 
               private modalCtrl: ModalController,

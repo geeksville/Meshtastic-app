@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
-import { ApiService } from '../services/api.service';
 import { SearchService } from '../services/search.service';
 import { Message } from '../models/message';
 import { Channel } from '../models/channel';
@@ -18,11 +18,12 @@ export class ChatTabPage implements OnInit {
   channels: Channel[] = [];
 
   constructor(
-    private api: ApiService,
     private search: SearchService,
     private loadingController: LoadingController,
     private storage: NativeStorage,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private ngZone: NgZone
+    ) { }
 
     messages: Message[] = [];
     public searchTerm: string = "";
@@ -46,6 +47,21 @@ export class ChatTabPage implements OnInit {
 
     ngOnInit() {
       this.getStoredChats();
+
+      var channel1 = new Channel;
+      channel1.name = "AAA";
+      channel1.id = 0;
+
+      var channel2 = new Channel;
+      channel2.name = "BBB";
+      channel2.id = 1;
+      channel2.default_key
+
+      this.ngZone.run(() => {
+        this.channels.push(channel1);
+        this.channels.push(channel2);
+
+      });
     }
 
     setFilteredItems() {

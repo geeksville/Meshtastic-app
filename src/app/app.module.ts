@@ -7,11 +7,11 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { BLE } from '@ionic-native/ble/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AppPreferences } from '@ionic-native/app-preferences/ngx';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { BLE } from '@ionic-native/ble/ngx';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,11 +24,11 @@ import { AppComponent } from './app.component';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    BLE,
     Geolocation,
     AppPreferences,
-    QRScanner,
-    NativeStorage
+    NativeStorage,
+    BLE,
+    QRScanner
   ],
   bootstrap: [AppComponent]
 })

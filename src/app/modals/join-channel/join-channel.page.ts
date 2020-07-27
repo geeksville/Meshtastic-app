@@ -27,7 +27,6 @@ export class JoinChannelPage implements OnInit {
           // camera permission was granted
           this.isOn = true;
 
-
           // start scanning
           const scanSub = this.qrScanCtrl.scan().subscribe((text: string) => {
             console.log('Scanned something', text);
