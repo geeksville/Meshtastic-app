@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { Component, OnInit,  } from '@angular/core';
+// import { Component, OnInit,  } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SearchService } from '../services/search.service';
 import { Message } from '../models/message';
