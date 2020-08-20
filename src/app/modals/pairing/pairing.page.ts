@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { ToastController, ModalController, LoadingController } from '@ionic/angular';
+import { ToastController, ModalController, LoadingController, Platform } from '@ionic/angular';
 import { BLE } from '@ionic-native/ble/ngx';
 
 @Component({
@@ -18,12 +18,28 @@ export class PairingPage implements OnInit {
   FROMNUM_UUID: string = "ed9da18c-a800-4f66-a670-aa7547e34453"
 
   constructor(
-              private loadingCtrl: LoadingController,
-              private toastCtrl: ToastController,
-              private ble: BLE,
-              private ngZone: NgZone,
-              private modalCtrl: ModalController) 
-  {}
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
+    private ble: BLE,
+    private ngZone: NgZone,
+    private modalCtrl: ModalController,
+    private platform: Platform) 
+  {
+    /* this.platform.ready().then(async () => {
+    const { status } = await this.ble.initialize()
+    if (status !== 'enabled') {
+    alert('Bluetooth in not enabled. Please enable it')
+    }
+    const { hasPermission } = await this.ble.hasPermission()
+    if (!hasPermission) {
+    await this.bluetooth.requestPermission()
+    }
+    const { isLocationEnabled } = await this.bluetooth.isLocationEnabled()
+    if (!isLocationEnabled) {
+    await this.bluetooth.requestLocation()
+    }
+    }) */
+  }
 
   dismissModal() {
     this.ble.disconnect(this.conenctedDeviceId);
