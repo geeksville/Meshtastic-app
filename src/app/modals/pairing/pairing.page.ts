@@ -6,7 +6,7 @@ import {
   Platform,
 } from "@ionic/angular";
 import { BLE } from "@ionic-native/ble/ngx";
-import { BluetoothLE } from "@ionic-native/bluetooth-le/ngx";
+import { BluetoothLE, ScanStatus } from "@ionic-native/bluetooth-le/ngx";
 
 @Component({
   selector: "app-pairing",
@@ -32,23 +32,31 @@ export class PairingPage implements OnInit {
     private platform: Platform
   ) {
     this.platform.ready().then(async () => {
-      const { status } = await this.bluetoothLE.initialize();
-      if (status !== "enabled") {
-        alert("Bluetooth in not enabled. Please enable it");
-      }
-      const { hasPermission } = await this.bluetoothLE.hasPermission();
-      if (!hasPermission) {
-        await this.bluetoothLE.requestPermission();
-      }
-      const { isLocationEnabled } = await this.bluetoothLE.isLocationEnabled();
-      if (!isLocationEnabled) {
-        await this.bluetoothLE.requestLocation();
-      }
+      const params = {
+        request: true,
+        //restoreKey: "bluetooth-test-app"
+      };
+      this.bluetoothLE.initialize(params).subscribe(async (ob) => {
+        if (ob.status !== "enabled") {
+          alert("Bluetooth in not enabled. Please enable it");
+        }
+
+        const { hasPermission } = await this.bluetoothLE.hasPermission();
+        if (!hasPermission) {
+          await this.bluetoothLE.requestPermission();
+        }
+        const {
+          isLocationEnabled,
+        } = await this.bluetoothLE.isLocationEnabled();
+        if (!isLocationEnabled) {
+          await this.bluetoothLE.requestLocation();
+        }
+      });
     });
   }
 
   dismissModal() {
-    this.bluetoothLE.disconnect(this.conenctedDeviceId);
+    this.bluetoothLE.disconnect(this.deviceId);
     this.modalCtrl.dismiss();
   }
 
@@ -73,12 +81,13 @@ export class PairingPage implements OnInit {
 
   scan() {
     this.setStatus("Scanning for BLE devices...");
+    console.log("Starting scan!!!");
     this.devices = []; // clear list
 
-    this.presentLoading();
+    // this.presentLoading();
 
     var params = {
-      services: [],
+      // services: [],
       allowDuplicates: false,
       scanTimeout: 15000,
       /* scanMode: bluetoothLE.SCAN_MODE_LOW_POWER,
@@ -88,17 +97,20 @@ export class PairingPage implements OnInit {
 
     this.bluetoothLE.startScan(params).subscribe(
       (device) => this.onDeviceDiscovered(device),
-      (error) => this.onError(error)
+      (error) => this.onError(error),
+      () => {
+        console.log("Scan timed out");
+      }
     );
   }
 
-  async onDeviceDiscovered(newDevice) {
-    console.log(newDevice);
-    if (!this.devices.some((device) => device.id == newDevice.id)) {
+  async onDeviceDiscovered(newDevice: ScanStatus) {
+    console.log("got device " + newDevice);
+    /* if (!this.devices.some((device) => device.id == newDevice.id)) {
       this.ngZone.run(() => {
         this.devices.push(newDevice);
       });
-    }
+    } */
   }
 
   // If location permission is denied, you'll end up here
@@ -149,6 +161,8 @@ export class PairingPage implements OnInit {
 
     console.log(peripheral);
 
+    // FIXME - do discover
+
     let notifyParams = {
       address: this.deviceId,
       service: this.service_uuid,
@@ -163,7 +177,7 @@ export class PairingPage implements OnInit {
       alert("Data changed to " + operationResult.value);
     });
 
-    this.bluetoothLE
+    /* this.bluetoothLE
       .read(peripheral.id, "180A", "2A27")
       .then((operationResult) => {
         //let data = new Uint8Array(buffer);
@@ -177,7 +191,7 @@ export class PairingPage implements OnInit {
         //let data = new Uint8Array(buffer);
         //var string = new TextDecoder("utf-8").decode(data);
         console.log("switch characteristic " + operationResult.value);
-      });
+      }); */
 
     let writeParams = {
       address: this.deviceId,
